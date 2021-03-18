@@ -1,4 +1,6 @@
 # Infrastructure
+I implemented this by storing the html file in S3, then enabling website hosting on the S3 file. I then enabled a Cloudflare distribution to proxy that website. You can view this site at https://dlroh4hufir9l.cloudfront.net
+
 Regarding testing, in the repo there is a `make test` target that simply curls the server. There are better ways of doing this of course, for example Terratest or Kitchen. You could even use something like Hashicorp's Sentinel to create Terraform policies like "all s3 objects must be private, except if the bucket is a website bucket". But for this assessment I kept the test simple.
 
 Besides testing, some obvious ideas for improvement:
@@ -16,4 +18,4 @@ All of the above ideas are for S3 websites. What if you don't have an S3 website
 * Just like mentioned above for S3: you need to consider failover. For example, if you have two APIs running in different regions and a load balancer for each one, you can have a Route53 Failover-type record that will redirect requests to the secondary region when the first region is failing. You can also use Latency-type records to serve requests to your deployment geographically closest to the client.
 
 # Coding
-Assumes you're using Python 3.6. Tests are `make tests`, requires `pytest` from pip. It would be good practice to make a Dockerfile and a `requirements.txt` or a Poetry file of course, but didn't bother for something this simple.
+Assumes you're using Python 3.6. Tests are `make tests`, requires `pytest` from pip. It would be good practice to make a Dockerfile and a `requirements.txt` or a Poetry file of course, but didn't for something this simple.
